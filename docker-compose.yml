@@ -1,8 +1,10 @@
 version: '3.6'
 services:
   telegraf:
-    image: telegraf:1.11-alpine
+    image: telegraf
+#:1.11-alpine
     volumes:
+    -  /var/run/docker.sock:/var/run/docker.sock 
     - ./telegraf/etc/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - influxdb
@@ -27,7 +29,7 @@ services:
     links:
       - influxdb
     ports:
-      - '3000:3000'
+      - '3080:3000'
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/:/etc/grafana/provisioning/
